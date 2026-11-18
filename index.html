@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mộc — Gốm sứ thủ công</title>
+
+  <style>
+    :root {
+      --cream: #f7f3ec;
+      --paper: #fffdf9;
+      --brown: #704d38;
+      --dark: #302820;
+      --muted: #83796e;
+      --line: #e8dfd4;
+      --terracotta: #b76d4a;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      color: var(--dark);
+      background: var(--cream);
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    button, input, select { font: inherit; }
+    button { cursor: pointer; }
+
+    .announcement {
+      padding: 10px 16px;
+      background: var(--brown);
+      color: white;
+      text-align: center;
+      font-size: 13px;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      border-bottom: 1px solid var(--line);
+      background: rgba(247, 243, 236, .96);
+      backdrop-filter: blur(10px);
+    }
+
+    .nav {
+      width: min(1160px, calc(100% - 40px));
+      min-height: 74px;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 22px;
+    }
+
+    .brand {
+      color: var(--brown);
+      font-family: Georgia, serif;
+      font-size: 29px;
+      font-weight: bold;
+      text-decoration: none;
+      letter-spacing: .5px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 25px;
+    }
+
+    .nav-links a {
+      color: var(--dark);
+      font-size: 14px;
+      text-decoration: none;
+    }
+
+    .nav-links a:hover { color: var(--terracotta); }
+
+    .cart-button {
+      padding: 10px 15px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--paper);
+      color: var(--dark);
+      white-space: nowrap;
+    }
+
+    .hero {
+      width: min(1160px, calc(100% - 40px));
+      min-height: 420px;
+      margin: 30px auto 55px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      overflow: hidden;
+      border-radius: 22px;
+      background: #e9dfd2;
+    }
+
+    .hero-copy {
+      padding: clamp(30px, 6vw, 68px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .eyebrow {
+      color: var(--terracotta);
+      font-size: 12px;
+      font-weight: bold;
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      max-width: 500px;
+      margin: 14px 0;
+      font-family: Georgia, serif;
+      font-size: clamp(38px, 5.5vw, 64px);
+      font-weight: 500;
+      line-height: 1.06;
+    }
+
+    .hero-copy p {
+      max-width: 430px;
+      margin: 0 0 25px;
+      color: #675d53;
+      line-height: 1.7;
+    }
+
+    .primary-button {
+      padding: 13px 20px;
+      border: 0;
+      border-radius: 999px;
+      background: var(--brown);
+      color: white;
+      font-weight: bold;
+      text-decoration: none;
+      transition: background .2s;
+    }
+
+    .primary-button:hover { background: #563a2a; }
+
+    .hero-image {
+      min-height: 320px;
+      background:
+        linear-gradient(0deg, rgba(50, 35, 22, .08), transparent 50%),
+        url("https://cdn2.tuoitre.vn/471584752817336320/data/teen360/pictures/2021/06/30/1625063786_myoceramics-1-.jpg")
+        center / cover;
+    }
+
+    .features {
+      width: min(1160px, calc(100% - 40px));
+      margin: 0 auto 55px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .feature {
+      padding: 20px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: rgba(255, 253, 249, .7);
+    }
+
+    .feature strong {
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .feature span {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .shop {
+      width: min(1160px, calc(100% - 40px));
+      margin: 0 auto 75px;
+    }
+
+    .section-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 20px;
+      margin-bottom: 22px;
+    }
+
+    .section-heading h2 {
+      margin: 7px 0;
+      font-family: Georgia, serif;
+      font-size: clamp(30px, 4vw, 42px);
+      font-weight: 500;
+    }
+
+    .section-heading p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .shop-tools {
+      display: flex;
+      gap: 12px;
+      margin: 22px 0;
+    }
+
+    .search, .category-select {
+      padding: 11px 14px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--paper);
+      color: var(--dark);
+      outline: none;
+    }
+
+    .search { width: min(300px, 100%); }
+    .search:focus, .category-select:focus { border-color: var(--terracotta); }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+
+    .product-card {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: var(--paper);
+      transition: transform .2s, box-shadow .2s;
+    }
+
+    .product-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 28px rgba(62, 43, 28, .1);
+    }
+
+    .product-image {
+      position: relative;
+      height: 245px;
+      overflow: hidden;
+      background: #e9e2d8;
+    }
+
+    .product-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .35s;
+    }
+
+    .product-card:hover .product-image img { transform: scale(1.04); }
+
+    .badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      padding: 6px 9px;
+      border-radius: 999px;
+      background: var(--paper);
+      color: var(--brown);
+      font-size: 11px;
+      font-weight: bold;
+    }
+
+    .product-info { padding: 16px; }
+
+    .product-category {
+      color: var(--muted);
+      font-size: 11px;
+      letter-spacing: .8px;
+      text-transform: uppercase;
+    }
+
+    .product-info h3 {
+      min-height: 40px;
+      margin: 8px 0;
+      font-family: Georgia, serif;
+      font-size: 18px;
+      font-weight: 500;
+    }
+
+    .product-description {
+      min-height: 36px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.4;
+    }
+
+    .price-row {
+      display: flex;
+      align-items: baseline;
+      gap: 9px;
+      margin: 13px 0;
+    }
+
+    .price { color: var(--brown); font-weight: bold; }
+    .old-price { color: #aaa095; font-size: 12px; text-decoration: line-through; }
+
+    .add-button {
+      width: 100%;
+      padding: 11px;
+      border: 0;
+      border-radius: 9px;
+      background: var(--brown);
+      color: white;
+      font-weight: bold;
+    }
+
+    .add-button:hover { background: #563a2a; }
+
+    .empty {
+      grid-column: 1 / -1;
+      padding: 35px;
+      border: 1px dashed #c9bbae;
+      border-radius: 14px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .about {
+      padding: 55px 20px;
+      background: #eee5da;
+      text-align: center;
+    }
+
+    .about h2 {
+      margin: 8px 0;
+      font-family: Georgia, serif;
+      font-size: 34px;
+      font-weight: 500;
+    }
+
+    .about p {
+      max-width: 650px;
+      margin: 12px auto 0;
+      color: #6d6258;
+      line-height: 1.7;
+    }
+
+    footer {
+      padding: 30px 20px;
+      background: #382d25;
+      color: #f6eee6;
+      text-align: center;
+      font-size: 13px;
+      line-height: 1.8;
+    }
+
+    @media (max-width: 900px) {
+      .product-grid { grid-template-columns: repeat(2, 1fr); }
+      .product-image { height: 270px; }
+    }
+
+    @media (max-width: 650px) {
+      .nav {
+        width: calc(100% - 28px);
+        min-height: 64px;
+      }
+
+      .brand { font-size: 25px; }
+      .nav-links { display: none; }
+
+      .hero {
+        width: calc(100% - 28px);
+        margin-top: 18px;
+        grid-template-columns: 1fr;
+      }
+
+      .hero-copy { padding: 35px 25px; }
+      .hero-image { min-height: 240px; }
+
+      .features {
+        width: calc(100% - 28px);
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+
+      .shop { width: calc(100% - 28px); }
+      .section-heading { align-items: flex-start; flex-direction: column; }
+      .shop-tools { flex-direction: column; }
+      .search, .category-select { width: 100%; }
+      .product-grid { gap: 11px; }
+      .product-image { height: 190px; }
+      .product-info { padding: 12px; }
+      .product-info h3 { font-size: 16px; }
+    }
+
+    @media (max-width: 390px) {
+      .product-grid { grid-template-columns: 1fr; }
+      .product-image { height: 250px; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="announcement">
+    Gốm thủ công, đóng gói cẩn thận · Miễn phí vận chuyển cho đơn từ 699.000đ
+  </div>
+
+  <header>
+    <nav class="nav">
+      <a class="brand" href="#">MỘC</a>
+
+      <div class="nav-links">
+        <a href="#san-pham">Sản phẩm</a>
+        <a href="#ve-chung-toi">Về chúng tôi</a>
+        <a href="#lien-he">Liên hệ</a>
+      </div>
+
+      <button class="cart-button" type="button">
+        Giỏ hàng (<span id="cart-count">0</span>)
+      </button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <span class="eyebrow">Đồ gốm thủ công</span>
+        <h1>Một chút mộc mạc cho ngôi nhà.</h1>
+        <p>
+          Những món gốm được tạo nên để đồng hành cùng bữa cơm,
+          góc trà và những khoảnh khắc bình yên mỗi ngày.
+        </p>
+        <a class="primary-button" href="#san-pham">Khám phá sản phẩm →</a>
+      </div>
+      <div class="hero-image" role="img" aria-label="Đồ gốm thủ công"></div>
+    </section>
+
+    <section class="features">
+      <div class="feature">
+        <strong>🏺 Làm thủ công</strong>
+        <span>Mỗi sản phẩm có nét riêng, mang vẻ đẹp tự nhiên của gốm.</span>
+      </div>
+      <div class="feature">
+        <strong>🎁 Gói quà chỉn chu</strong>
+        <span>Có thể chọn sản phẩm làm quà tặng cho người thân, bạn bè.</span>
+      </div>
+      <div class="feature">
+        <strong>📦 Đóng gói an toàn</strong>
+        <span>Đóng gói kỹ càng để sản phẩm đến tay bạn nguyên vẹn.</span>
+      </div>
+    </section>
+
+    <section class="shop" id="san-pham">
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">Góc gốm của Mộc</span>
+          <h2>Sản phẩm nổi bật</h2>
+          <p>Tìm món đồ gốm phù hợp với không gian và thói quen của bạn.</p>
+        </div>
+      </div>
+
+      <div class="shop-tools">
+        <input
+          class="search"
+          id="search"
+          type="search"
+          placeholder="Tìm tên sản phẩm..."
+          aria-label="Tìm tên sản phẩm"
+        >
+
+        <select class="category-select" id="category-filter" aria-label="Lọc theo danh mục">
+          <option value="Tất cả">Tất cả danh mục</option>
+        </select>
+      </div>
+
+      <div class="product-grid" id="product-grid"></div>
+    </section>
+
+    <section class="about" id="ve-chung-toi">
+      <span class="eyebrow">Chuyện của Mộc</span>
+      <h2>Đẹp theo cách tự nhiên</h2>
+      <p>
+        Mộc giới thiệu những món đồ gốm gần gũi, dễ dùng và dễ phối
+        trong ngôi nhà của bạn. Hãy chọn sản phẩm bạn yêu thích và liên hệ
+        với chúng tôi để được tư vấn.
+      </p>
+    </section>
+  </main>
+
+  <footer id="lien-he">
+    <strong>MỘC</strong><br>
+    Điện thoại: 0886121934 · Email: nguynlinh096@gmail.com<br>
+    Địa chỉ: Đại học Công Nghệ Kỹ Thuật TP.HCM
+  </footer>
+
+  <script>
+    /*
+      CHỈNH SỬA SẢN PHẨM TẠI ĐÂY:
+
+      name: tên sản phẩm
+      category: danh mục
+      price: giá bán, chỉ nhập số
+      oldPrice: giá cũ; nhập 0 nếu không muốn hiện
+      image: đường dẫn ảnh sản phẩm
+      badge: nhãn nhỏ trên ảnh
+      description: mô tả ngắn
+    */
+
+    const products = [
+      {
+        id: 1,
+        name: "Ly gốm nhỏ xinh",
+        category: "Ly gốm",
+        price: 120000,
+        oldPrice: 150000,
+        image: "https://i.pinimg.com/236x/db/63/9b/db639bec756a674708aa4bb2ce60b3d7.jpg",
+        badge: "Bán chạy",
+        description: "Ly gốm nhỏ xinh, hợp dùng hằng ngày."
+      },
+      {
+        id: 2,
+        name: "Đĩa gốm dáng tròn",
+        category: "Đĩa gốm",
+        price: 350000,
+        oldPrice: 0,
+        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_2WIeY2U0b5QERIiYT-oduyT3QsEQY_LiPAfGwBeQo_SgOA6D8kvxkQ4&s=10",
+        badge: "Thủ công",
+        description: "Tạo điểm nhấn mộc mạc cho bàn ăn của bạn."
+      },
+      {
+        id: 3,
+        name: "Đĩa gốm vân men",
+        category: "Bát đĩa",
+        price: 185000,
+        oldPrice: 210000,
+        image: "https://images.unsplash.com/photo-1493106641515-6b5631de4bb9?auto=format&fit=crop&w=800&q=80",
+        badge: "Ưu đãi",
+        description: "Đĩa gốm thủ công, phù hợp bày món ăn."
+      },
+      {
+        id: 4,
+        name: "Ly gốm uống cà phê",
+        category: "Ly cốc",
+        price: 145000,
+        oldPrice: 0,
+        image: "https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?auto=format&fit=crop&w=800&q=80",
+        badge: "Được yêu thích",
+        description: "Chiếc ly vừa tay cho buổi sáng thư thả."
+      },
+      {
+        id: 5,
+        name: "Bình rót trà men xanh",
+        category: "Bộ trà",
+        price: 295000,
+        oldPrice: 0,
+        image: "https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?auto=format&fit=crop&w=800&q=80",
+        badge: "Mới",
+        description: "Dáng bình thanh nhã, dễ kết hợp với bộ tách."
+      },
+      {
+        id: 6,
+        name: "Chậu gốm trồng cây mini",
+        category: "Trang trí",
+        price: 120000,
+        oldPrice: 150000,
+        image: "https://images.unsplash.com/photo-1485955900006-10f4d324d411?auto=format&fit=crop&w=800&q=80",
+        badge: "Ưu đãi",
+        description: "Thêm sắc xanh nhỏ cho bàn làm việc hoặc bệ cửa sổ."
+      },
+      {
+        id: 7,
+        name: "Tô gốm men nâu",
+        category: "Bát đĩa",
+        price: 165000,
+        oldPrice: 0,
+        image: "https://images.unsplash.com/photo-1603199506016-b9a594b593c0?auto=format&fit=crop&w=800&q=80",
+        badge: "Thủ công",
+        description: "Tô gốm đơn giản, phù hợp sử dụng mỗi ngày."
+      },
+      {
+        id: 8,
+        name: "Lọ gốm trang trí nhỏ",
+        category: "Trang trí",
+        price: 225000,
+        oldPrice: 0,
+        image: "https://images.unsplash.com/photo-1576021182211-9ea8dced3690?auto=format&fit=crop&w=800&q=80",
+        badge: "Mộc mạc",
+        description: "Món đồ trang trí tinh tế cho góc nhà yêu thích."
+      }
+    ];
+
+    const productGrid = document.getElementById("product-grid");
+    const searchInput = document.getElementById("search");
+    const categoryFilter = document.getElementById("category-filter");
+    let cartCount = 0;
+
+    function formatPrice(price) {
+      return price.toLocaleString("vi-VN") + "đ";
+    }
+
+    function createProductCard(product) {
+      return `
+        <article class="product-card">
+          <div class="product-image">
+            <img src="${product.image}" alt="${product.name}" loading="lazy">
+            <span class="badge">${product.badge}</span>
+          </div>
+          <div class="product-info">
+            <div class="product-category">${product.category}</div>
+            <h3>${product.name}</h3>
+            <div class="product-description">${product.description}</div>
+            <div class="price-row">
+              <span class="price">${formatPrice(product.price)}</span>
+              ${product.oldPrice
+                ? `<span class="old-price">${formatPrice(product.oldPrice)}</span>`
+                : ""}
+            </div>
+            <button class="add-button" type="button" data-add="${product.id}">
+              Thêm vào giỏ
+            </button>
+          </div>
+        </article>
+      `;
+    }
+
+    function renderProducts() {
+      const query = searchInput.value.trim().toLowerCase();
+      const selectedCategory = categoryFilter.value;
+
+      const filteredProducts = products.filter(product => {
+        const matchesName = product.name.toLowerCase().includes(query);
+        const matchesCategory =
+          selectedCategory === "Tất cả" || product.category === selectedCategory;
+
+        return matchesName && matchesCategory;
+      });
+
+      productGrid.innerHTML = filteredProducts.length
+        ? filteredProducts.map(createProductCard).join("")
+        : '<div class="empty">Không tìm thấy sản phẩm phù hợp.</div>';
+    }
+
+    function populateCategories() {
+      const categories = [...new Set(products.map(product => product.category))];
+
+      categories.forEach(category => {
+        const option = document.createElement("option");
+        option.value = category;
+        option.textContent = category;
+        categoryFilter.appendChild(option);
+      });
+    }
+
+    productGrid.addEventListener("click", event => {
+      const button = event.target.closest("[data-add]");
+      if (!button) return;
+
+      cartCount += 1;
+      document.getElementById("cart-count").textContent = cartCount;
+      button.textContent = "Đã thêm ✓";
+
+      setTimeout(() => {
+        button.textContent = "Thêm vào giỏ";
+      }, 1000);
+    });
+
+    searchInput.addEventListener("input", renderProducts);
+    categoryFilter.addEventListener("change", renderProducts);
+
+    populateCategories();
+    renderProducts();
+  </script>
+</body>
+</html>
