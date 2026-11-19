@@ -399,7 +399,7 @@
 
 <body>
   <div class="announcement">
-    Flash Sale kết thúc sau: <strong id="flash-sale-timer">02:00:00</strong> · Miễn phí vận chuyển từ 699.000đ
+    Flash Sale kết thúc sau: <strong id="flash-sale-timer">02:00:00</strong> · Miễn phí vận chuyển từ 299.000đ
     <a href="#lien-he">Liên hệ</a>
   </div>
 
@@ -676,7 +676,7 @@
 
     const saleEl = document.getElementById("flash-sale-timer");
     const shopSaleEl = document.getElementById("shop-sale-timer");
-    let saleSeconds = 2 * 3600;
+    let saleSeconds = 30 * 60;
     function updateSaleCountdown() {
       if (saleSeconds <= 0) {
         if (saleEl) saleEl.textContent = "00:00:00";
