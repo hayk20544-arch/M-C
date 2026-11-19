@@ -66,7 +66,6 @@
 
     .nav-links {
       display: flex;
-      align-items: center;
       gap: 25px;
     }
 
@@ -77,13 +76,6 @@
     }
 
     .nav-links a:hover { color: var(--terracotta); }
-
-    #live-time {
-      font-size: 13px;
-      color: var(--brown);
-      font-weight: bold;
-      white-space: nowrap;
-    }
 
     .cart-button {
       padding: 10px 15px;
@@ -464,9 +456,7 @@
           <p>Tìm món đồ gốm phù hợp với không gian và thói quen của bạn.</p>
         </div>
       </div>
-
       <p>Ưu đãi kết thúc sau: <span id="shop-sale-timer">02:00:00</span></p>
-
       <div class="shop-tools">
         <input
           class="search"
@@ -502,4 +492,327 @@
   </footer>
 
   <div id="cart-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:999;justify-content:center;align-items:center;padding:16px;">
-    <div style="background:#fffdf9;color:#302820;width:min(520px,100%);max-height:
+    <div style="background:#fffdf9;color:#302820;width:min(520px,100%);max-height:85vh;overflow:auto;border-radius:16px;padding:20px;border:1px solid #e8dfd4;box-shadow:0 16px 40px rgba(0,0,0,.2);">
+      <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #e8dfd4;padding-bottom:12px;">
+        <h3 style="margin:0;font-size:20px;">Giỏ hàng của bạn</h3>
+        <button id="close-cart" type="button" style="border:none;background:transparent;font-size:20px;">✕</button>
+      </div>
+
+      <div id="cart-items" style="margin:16px 0;"></div>
+
+      <div style="display:flex;justify-content:space-between;align-items:center;font-weight:bold;font-size:16px;border-top:1px solid #e8dfd4;padding-top:12px;">
+        <span>Tổng tiền:</span>
+        <span id="cart-total" style="color:#704d38;">0đ</span>
+      </div>
+
+      <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap;">
+        <button id="copy-cart-btn" type="button" style="flex:1;padding:11px;border-radius:9px;border:1px solid #704d38;background:#fff;color:#704d38;font-weight:bold;">Sao chép danh sách món</button>
+        <a id="checkout-link" href="https://forms.gle/Mo3HRN2X5XgxKQqT8" target="_blank" style="flex:1;padding:11px;border-radius:9px;background:#704d38;color:#fff;font-weight:bold;text-align:center;text-decoration:none;">Tiến hành đặt mua →</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const products = [
+      {
+        id: 1,
+        name: "Ly gốm nhỏ xinh",
+        category: "Ly gốm",
+        price: 120000,
+        oldPrice: 150000,
+        image: "https://i.pinimg.com/236x/db/63/9b/db639bec756a674708aa4bb2ce60b3d7.jpg",
+        badge: "Bán chạy",
+        description: "Chiếc ly vừa tay cho buổi sáng thư thả."
+      },
+      {
+        id: 2,
+        name: "Đĩa gốm dáng tròn",
+        category: "Đĩa gốm",
+        price: 130000,
+        oldPrice: 190000,
+        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_2WIeY2U0b5QERIiYT-oduyT3QsEQY_LiPAfGwBeQo_SgOA6D8kvxkQ4&s=10",
+        badge: "Thủ công",
+        description: "Tạo điểm nhấn mộc mạc cho bàn ăn của bạn."
+      },
+      {
+        id: 3,
+        name: "Bát gốm cute",
+        category: "Bát đĩa",
+        price: 145000,
+        oldPrice: 210000,
+        image: "https://product.hstatic.net/200000555893/product/chen-an-hoa-qua-gom-su-3_0a4ce994f28f4d87964ecd529ba70dc0_large.jpg",
+        badge: "Ưu đãi",
+        description: "bát gốm thủ công, phù hợp đựng món ăn."
+      },
+      {
+        id: 4,
+        name: "Tô kính sứ",
+        category: "Ly cốc",
+        price: 145000,
+        oldPrice: 200000,
+        image: "https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-lz5ke4f5u79pcb",
+        badge: "Được yêu thích",
+        description: "nồi lẩu siu iu buổi tối."
+      },
+      {
+        id: 5,
+        name: "Thìa cơm gốm sứ",
+        category: "đũa thìa",
+        price: 60000,
+        oldPrice: 95000,
+        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQppmuBkSKIJIsQdpJsOXDJezJsIVWPYbOunCntiuVvkV80foI8TTBPpdAL&s=10",
+        badge: "Mới",
+        description: "Từng thìa cơm ngon lành."
+      },
+      {
+        id: 6,
+        name: "Chậu gốm trồng cây mini",
+        category: "Trang trí",
+        price: 120000,
+        oldPrice: 150000,
+        image: "https://sudospaces.com/thichtrongcay/2021/07/3e2a5893386018376cbf2d7ef8b493ca.jpg",
+        badge: "Ưu đãi",
+        description: "Thêm sắc xanh nhỏ cho bàn làm việc hoặc bệ cửa sổ."
+      },
+      {
+        id: 7,
+        name: "Bát đựng nước chấm cuti",
+        category: "Bát đĩa",
+        price: 55000,
+        oldPrice: 80000,
+        image: "https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcS37B9YdyH4_tW_5XRdJdvhz1Gq6ILih4xv3BDIuFKNvzMNSQWsb1BuXk8ASv9I9PUB7qoSR15cEZjkbsgJolfX7ldoKs3eNKnnezfh380&usqp=CAc",
+        badge: "Thủ công",
+        description: "bát đơn giản, phù hợp sử dụng mỗi ngày."
+      },
+      {
+        id: 8,
+        name: "Bát tô sứ up mì dễ thương",
+        category: "Trang trí",
+        price: 135000,
+        oldPrice: 165000,
+        image: "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcTWSOKNP5Slr2OHQr36r9shqxhRsliBlZfNOSAysvHEkcewKpTRr3wlJBJGeae_yNuiVHWi24Ov29MxLVrB-7HzaiOQLHY0sgkTpLYERUQ&usqp=CAc",
+        badge: "Tiện lợi",
+        description: "Món đồ sử dụng dễ thương cho từng bữa ăn."
+      }
+    ];
+
+    const productGrid = document.getElementById("product-grid");
+    const searchInput = document.getElementById("search");
+    const categoryFilter = document.getElementById("category-filter");
+
+    function formatPrice(price) {
+      return price.toLocaleString("vi-VN") + "đ";
+    }
+
+    function createProductCard(product) {
+      return `
+        <article class="product-card">
+          <div class="product-image">
+            <img src="${product.image}" alt="${product.name}" loading="lazy">
+            <span class="badge">${product.badge}</span>
+          </div>
+          <div class="product-info">
+            <div class="product-category">${product.category}</div>
+            <h3>${product.name}</h3>
+            <div class="product-description">${product.description}</div>
+            <div class="price-row">
+              <span class="price">${formatPrice(product.price)}</span>
+              ${product.oldPrice
+                ? `<span class="old-price">${formatPrice(product.oldPrice)}</span>`
+                : ""}
+            </div>
+            ${product.saleTimer
+              ? `<div class="card-countdown">Ưu đãi còn: <span class="card-sale-timer">00:30:00</span></div>`
+              : ""}
+            <button type="button" data-add="${product.id}" class="add-button" style="margin-bottom: 8px;">Thêm vào giỏ</button>
+            <a href="https://forms.gle/Mo3HRN2X5XgxKQqT8" target="_blank" class="add-to-cart" style="text-align: center; text-decoration: none; display: block;">Đặt mua ngay</a>
+          </div>
+        </article>
+      `;
+    }
+
+    function renderProducts() {
+      const query = searchInput.value.trim().toLowerCase();
+      const selectedCategory = categoryFilter.value;
+
+      const filteredProducts = products.filter(product => {
+        const matchesName = product.name.toLowerCase().includes(query);
+        const matchesCategory =
+          selectedCategory === "Tất cả" || product.category === selectedCategory;
+
+        return matchesName && matchesCategory;
+      });
+
+      productGrid.innerHTML = filteredProducts.length
+        ? filteredProducts.map(createProductCard).join("")
+        : '<div class="empty">Không tìm thấy sản phẩm phù hợp.</div>';
+    }
+
+    function populateCategories() {
+      const categories = [...new Set(products.map(product => product.category))];
+
+      categories.forEach(category => {
+        const option = document.createElement("option");
+        option.value = category;
+        option.textContent = category;
+        categoryFilter.appendChild(option);
+      });
+    }
+
+    searchInput.addEventListener("input", renderProducts);
+    categoryFilter.addEventListener("change", renderProducts);
+
+    populateCategories();
+    renderProducts();
+
+    const clockEl = document.getElementById("live-time");
+    function updateClock() {
+      if (!clockEl) return;
+      const now = new Date();
+      clockEl.textContent = now.toLocaleTimeString("vi-VN");
+    }
+    updateClock();
+    setInterval(updateClock, 1000);
+
+    const saleEl = document.getElementById("flash-sale-timer");
+    const shopSaleEl = document.getElementById("shop-sale-timer");
+    let saleSeconds = 2 * 3600;
+    function updateSaleCountdown() {
+      if (saleSeconds <= 0) {
+        if (saleEl) saleEl.textContent = "00:00:00";
+        if (shopSaleEl) shopSaleEl.textContent = "00:00:00";
+        return;
+      }
+      const h = String(Math.floor(saleSeconds / 3600)).padStart(2, "0");
+      const m = String(Math.floor((saleSeconds % 3600) / 60)).padStart(2, "0");
+      const s = String(saleSeconds % 60).padStart(2, "0");
+      const formatted = `${h}:${m}:${s}`;
+      if (saleEl) saleEl.textContent = formatted;
+      if (shopSaleEl) shopSaleEl.textContent = formatted;
+      saleSeconds -= 1;
+    }
+    updateSaleCountdown();
+    setInterval(updateSaleCountdown, 1000);
+
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get("order_success") === "1") {
+      const notice = document.createElement("div");
+      notice.textContent = "Đặt hàng thành công! Mộc sẽ liên hệ xác nhận với bạn sớm nhất.";
+      notice.style.cssText = "position:fixed;top:16px;left:50%;transform:translateX(-50%);background:#2e7d32;color:#fff;padding:12px 20px;border-radius:999px;font-weight:bold;z-index:9999;box-shadow:0 8px 24px rgba(0,0,0,.18);";
+      document.body.appendChild(notice);
+      window.history.replaceState({}, document.title, window.location.pathname);
+      setTimeout(() => notice.remove(), 5000);
+    }
+
+    let cart = [];
+    const cartModal = document.getElementById("cart-modal");
+    const cartItemsEl = document.getElementById("cart-items");
+    const cartTotalEl = document.getElementById("cart-total");
+    const checkoutLink = document.getElementById("checkout-link");
+    const copyCartBtn = document.getElementById("copy-cart-btn");
+    const cartHeaderBtn = document.querySelector(".cart-button");
+
+    function getCartSummaryText() {
+      if (!cart.length) return "";
+      return cart
+        .map(item => `${item.name} x${item.qty} (${formatPrice(item.price * item.qty)})`)
+        .join(", ");
+    }
+
+    function updateCartUI() {
+      const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
+      const totalPrice = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
+
+      document.getElementById("cart-count").textContent = totalQty;
+      cartTotalEl.textContent = formatPrice(totalPrice);
+
+      if (!cart.length) {
+        cartItemsEl.innerHTML = '<p style="color:#83796e;text-align:center;padding:16px 0;">Giỏ hàng đang trống.</p>';
+      } else {
+        cartItemsEl.innerHTML = cart.map(item => `
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 0;border-bottom:1px dashed #e8dfd4;">
+            <div>
+              <div style="font-weight:bold;">${item.name}</div>
+              <div style="font-size:13px;color:#83796e;">${formatPrice(item.price)} x ${item.qty}</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <button type="button" data-dec="${item.id}" style="width:28px;height:28px;border:1px solid #e8dfd4;border-radius:6px;background:#fff;">-</button>
+              <span>${item.qty}</span>
+              <button type="button" data-inc="${item.id}" style="width:28px;height:28px;border:1px solid #e8dfd4;border-radius:6px;background:#fff;">+</button>
+              <button type="button" data-del="${item.id}" style="border:none;background:transparent;color:#b76d4a;font-weight:bold;margin-left:4px;">Xóa</button>
+            </div>
+          </div>
+        `).join("");
+      }
+
+      checkoutLink.href = "https://forms.gle/Mo3HRN2X5XgxKQqT8";
+    }
+
+    productGrid.addEventListener("click", event => {
+      const btn = event.target.closest("[data-add]");
+      if (!btn) return;
+      const id = Number(btn.getAttribute("data-add"));
+      const prod = products.find(p => p.id === id);
+      if (!prod) return;
+
+      const existing = cart.find(i => i.id === id);
+      if (existing) {
+        existing.qty += 1;
+      } else {
+        cart.push({ id: prod.id, name: prod.name, price: prod.price, qty: 1 });
+      }
+      updateCartUI();
+
+      btn.textContent = "Đã thêm ✓";
+      setTimeout(() => { btn.textContent = "Thêm vào giỏ"; }, 1000);
+    });
+
+    cartItemsEl.addEventListener("click", event => {
+      const incBtn = event.target.closest("[data-inc]");
+      const decBtn = event.target.closest("[data-dec]");
+      const delBtn = event.target.closest("[data-del]");
+
+      if (incBtn) {
+        const id = Number(incBtn.getAttribute("data-inc"));
+        const item = cart.find(i => i.id === id);
+        if (item) item.qty += 1;
+      } else if (decBtn) {
+        const id = Number(decBtn.getAttribute("data-dec"));
+        const item = cart.find(i => i.id === id);
+        if (item) {
+          item.qty -= 1;
+          if (item.qty <= 0) cart = cart.filter(i => i.id !== id);
+        }
+      } else if (delBtn) {
+        const id = Number(delBtn.getAttribute("data-del"));
+        cart = cart.filter(i => i.id !== id);
+      }
+      updateCartUI();
+    });
+
+    copyCartBtn.addEventListener("click", () => {
+      const summary = getCartSummaryText();
+      if (!summary) return;
+      navigator.clipboard?.writeText(summary);
+      copyCartBtn.textContent = "Đã sao chép ✓";
+      setTimeout(() => { copyCartBtn.textContent = "Sao chép danh sách món"; }, 1200);
+    });
+
+    if (cartHeaderBtn) {
+      cartHeaderBtn.addEventListener("click", () => {
+        cartModal.style.display = "flex";
+      });
+    }
+
+    document.getElementById("close-cart").addEventListener("click", () => {
+      cartModal.style.display = "none";
+    });
+
+    cartModal.addEventListener("click", e => {
+      if (e.target === cartModal) cartModal.style.display = "none";
+    });
+
+    updateCartUI();
+  </script>
+</body>
+</html>
