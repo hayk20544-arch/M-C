@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mộc — Gốm sứ thủ công</title>
-
   <style>
     :root {
       --cream: #f7f3ec;
@@ -15,19 +14,15 @@
       --line: #e8dfd4;
       --terracotta: #b76d4a;
     }
-
     * { box-sizing: border-box; }
-
     body {
       margin: 0;
       color: var(--dark);
       background: var(--cream);
-      font-family: Arial;
+      font-family: Arial, sans-serif;
     }
-
     button, input, select { font: inherit; }
     button { cursor: pointer; }
-
     .announcement {
       padding: 10px 16px;
       background: var(--brown);
@@ -35,7 +30,7 @@
       text-align: center;
       font-size: 13px;
     }
-
+    .announcement a { color: #ffe6d5; }
     header {
       position: sticky;
       top: 0;
@@ -44,7 +39,6 @@
       background: rgba(247, 243, 236, .96);
       backdrop-filter: blur(10px);
     }
-
     .nav {
       width: min(1160px, calc(100% - 40px));
       min-height: 74px;
@@ -52,31 +46,33 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 22px;
+      gap: 18px;
     }
-
     .brand {
       color: var(--brown);
-      font-family: Arial;
       font-size: 29px;
       font-weight: bold;
       text-decoration: none;
       letter-spacing: .5px;
     }
-
     .nav-links {
       display: flex;
-      gap: 25px;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
     }
-
     .nav-links a {
       color: var(--dark);
       font-size: 14px;
       text-decoration: none;
     }
-
     .nav-links a:hover { color: var(--terracotta); }
-
+    #live-time {
+      font-size: 13px;
+      color: var(--brown);
+      font-weight: bold;
+      white-space: nowrap;
+    }
     .cart-button {
       padding: 10px 15px;
       border: 1px solid var(--line);
@@ -84,8 +80,8 @@
       background: var(--paper);
       color: var(--dark);
       white-space: nowrap;
+      font-weight: bold;
     }
-
     .hero {
       width: min(1160px, calc(100% - 40px));
       min-height: 420px;
@@ -96,7 +92,6 @@
       border-radius: 22px;
       background: #e9dfd2;
     }
-
     .hero-copy {
       padding: clamp(30px, 6vw, 68px);
       display: flex;
@@ -104,7 +99,6 @@
       justify-content: center;
       align-items: flex-start;
     }
-
     .eyebrow {
       color: var(--terracotta);
       font-size: 12px;
@@ -112,23 +106,19 @@
       letter-spacing: 1.8px;
       text-transform: uppercase;
     }
-
     h1 {
       max-width: 500px;
       margin: 14px 0;
-      font-family: Arial;
       font-size: clamp(38px, 5.5vw, 64px);
       font-weight: 500;
       line-height: 1.06;
     }
-
     .hero-copy p {
       max-width: 430px;
       margin: 0 0 25px;
       color: #675d53;
       line-height: 1.7;
     }
-
     .primary-button {
       padding: 13px 20px;
       border: 0;
@@ -139,9 +129,7 @@
       text-decoration: none;
       transition: background .2s;
     }
-
     .primary-button:hover { background: #563a2a; }
-
     .hero-image {
       min-height: 320px;
       background:
@@ -149,7 +137,6 @@
         url("https://cdn2.tuoitre.vn/471584752817336320/data/teen360/pictures/2021/06/30/1625063786_myoceramics-1-.jpg")
         center / cover;
     }
-
     .features {
       width: min(1160px, calc(100% - 40px));
       margin: 0 auto 55px;
@@ -157,57 +144,36 @@
       grid-template-columns: repeat(3, 1fr);
       gap: 16px;
     }
-
     .feature {
       padding: 20px;
       border: 1px solid var(--line);
       border-radius: 14px;
       background: rgba(255, 253, 249, .7);
     }
-
-    .feature strong {
-      display: block;
-      margin-bottom: 6px;
-    }
-
-    .feature span {
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.5;
-    }
-
+    .feature strong { display: block; margin-bottom: 6px; }
+    .feature span { color: var(--muted); font-size: 14px; line-height: 1.5; }
     .shop {
       width: min(1160px, calc(100% - 40px));
       margin: 0 auto 75px;
     }
-
     .section-heading {
       display: flex;
       justify-content: space-between;
       align-items: end;
       gap: 20px;
-      margin-bottom: 22px;
+      margin-bottom: 12px;
     }
-
     .section-heading h2 {
       margin: 7px 0;
-      font-family: Arial;
       font-size: clamp(30px, 4vw, 42px);
       font-weight: 500;
     }
-
-    .section-heading p {
-      margin: 0;
-      color: var(--muted);
-      font-size: 14px;
-    }
-
+    .section-heading p { margin: 0; color: var(--muted); font-size: 14px; }
     .shop-tools {
       display: flex;
       gap: 12px;
-      margin: 22px 0;
+      margin: 18px 0 22px;
     }
-
     .search, .category-select {
       padding: 11px 14px;
       border: 1px solid var(--line);
@@ -216,16 +182,13 @@
       color: var(--dark);
       outline: none;
     }
-
-    .search { width: min(300px, 100%); }
+    .search { width: min(320px, 100%); }
     .search:focus, .category-select:focus { border-color: var(--terracotta); }
-
     .product-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 18px;
     }
-
     .product-card {
       overflow: hidden;
       border: 1px solid var(--line);
@@ -233,28 +196,23 @@
       background: var(--paper);
       transition: transform .2s, box-shadow .2s;
     }
-
     .product-card:hover {
       transform: translateY(-4px);
       box-shadow: 0 12px 28px rgba(62, 43, 28, .1);
     }
-
     .product-image {
       position: relative;
       height: 245px;
       overflow: hidden;
       background: #e9e2d8;
     }
-
     .product-image img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       transition: transform .35s;
     }
-
     .product-card:hover .product-image img { transform: scale(1.04); }
-
     .badge {
       position: absolute;
       top: 12px;
@@ -266,41 +224,33 @@
       font-size: 11px;
       font-weight: bold;
     }
-
     .product-info { padding: 16px; }
-
     .product-category {
       color: var(--muted);
       font-size: 11px;
       letter-spacing: .8px;
       text-transform: uppercase;
     }
-
     .product-info h3 {
       min-height: 40px;
       margin: 8px 0;
-      font-family: Arial;
       font-size: 18px;
       font-weight: 500;
     }
-
     .product-description {
       min-height: 36px;
       color: var(--muted);
       font-size: 13px;
       line-height: 1.4;
     }
-
     .price-row {
       display: flex;
       align-items: baseline;
       gap: 9px;
       margin: 13px 0;
     }
-
     .price { color: var(--brown); font-weight: bold; }
     .old-price { color: #aaa095; font-size: 12px; text-decoration: line-through; }
-
     .add-button, .add-to-cart {
       width: 100%;
       padding: 11px;
@@ -310,9 +260,7 @@
       color: white;
       font-weight: bold;
     }
-
     .add-button:hover, .add-to-cart:hover { background: #563a2a; }
-
     .empty {
       grid-column: 1 / -1;
       padding: 35px;
@@ -321,27 +269,13 @@
       color: var(--muted);
       text-align: center;
     }
-
     .about {
       padding: 55px 20px;
       background: #eee5da;
       text-align: center;
     }
-
-    .about h2 {
-      margin: 8px 0;
-      font-family: Arial;
-      font-size: 34px;
-      font-weight: 500;
-    }
-
-    .about p {
-      max-width: 650px;
-      margin: 12px auto 0;
-      color: #6d6258;
-      line-height: 1.7;
-    }
-
+    .about h2 { margin: 8px 0; font-size: 34px; font-weight: 500; }
+    .about p { max-width: 650px; margin: 12px auto 0; color: #6d6258; line-height: 1.7; }
     footer {
       padding: 30px 20px;
       background: #382d25;
@@ -350,36 +284,29 @@
       font-size: 13px;
       line-height: 1.8;
     }
-
+    #cart-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, .45);
+      z-index: 999;
+      justify-content: center;
+      align-items: center;
+      padding: 16px;
+    }
+    #cart-modal.open { display: flex; }
     @media (max-width: 900px) {
       .product-grid { grid-template-columns: repeat(2, 1fr); }
       .product-image { height: 270px; }
     }
-
     @media (max-width: 650px) {
-      .nav {
-        width: calc(100% - 28px);
-        min-height: 64px;
-      }
-
+      .nav { width: calc(100% - 28px); min-height: 64px; }
       .brand { font-size: 25px; }
       .nav-links { display: none; }
-
-      .hero {
-        width: calc(100% - 28px);
-        margin-top: 18px;
-        grid-template-columns: 1fr;
-      }
-
+      .hero { width: calc(100% - 28px); margin-top: 18px; grid-template-columns: 1fr; }
       .hero-copy { padding: 35px 25px; }
       .hero-image { min-height: 240px; }
-
-      .features {
-        width: calc(100% - 28px);
-        grid-template-columns: 1fr;
-        gap: 10px;
-      }
-
+      .features { width: calc(100% - 28px); grid-template-columns: 1fr; gap: 10px; }
       .shop { width: calc(100% - 28px); }
       .section-heading { align-items: flex-start; flex-direction: column; }
       .shop-tools { flex-direction: column; }
@@ -389,31 +316,27 @@
       .product-info { padding: 12px; }
       .product-info h3 { font-size: 16px; }
     }
-
     @media (max-width: 390px) {
       .product-grid { grid-template-columns: 1fr; }
       .product-image { height: 250px; }
     }
   </style>
 </head>
-
 <body>
   <div class="announcement">
-    Flash Sale kết thúc sau: <strong id="flash-sale-timer">02:00:00</strong> · Miễn phí vận chuyển từ 699.000đ
+    Flash Sale kết thúc sau: <strong id="flash-sale-timer">00:30:00</strong> · Miễn phí vận chuyển từ 299.000đ ·
     <a href="#lien-he">Liên hệ</a>
   </div>
 
   <header>
     <nav class="nav">
       <a class="brand" href="#">MỘC</a>
-
       <div class="nav-links">
         <a href="#san-pham">Sản phẩm</a>
         <a href="#ve-chung-toi">Về chúng tôi</a>
         <span id="live-time"></span>
       </div>
-
-      <button class="cart-button" type="button">
+      <button class="cart-button" id="open-cart-btn" type="button">
         Giỏ hàng (<span id="cart-count">0</span>)
       </button>
     </nav>
@@ -456,7 +379,7 @@
           <p>Tìm món đồ gốm phù hợp với không gian và thói quen của bạn.</p>
         </div>
       </div>
-      <p>Ưu đãi kết thúc sau: <span id="shop-sale-timer">02:00:00</span></p>
+      <p>Ưu đãi kết thúc sau: <span id="shop-sale-timer">00:30:00</span></p>
       <div class="shop-tools">
         <input
           class="search"
@@ -465,12 +388,10 @@
           placeholder="Tìm tên sản phẩm..."
           aria-label="Tìm tên sản phẩm"
         >
-
         <select class="category-select" id="category-filter" aria-label="Lọc theo danh mục">
           <option value="Tất cả">Tất cả danh mục</option>
         </select>
       </div>
-
       <div class="product-grid" id="product-grid"></div>
     </section>
 
@@ -491,20 +412,17 @@
     Địa chỉ: Đại học Công Nghệ Kỹ Thuật TP.HCM
   </footer>
 
-  <div id="cart-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:999;justify-content:center;align-items:center;padding:16px;">
+  <div id="cart-modal">
     <div style="background:#fffdf9;color:#302820;width:min(520px,100%);max-height:85vh;overflow:auto;border-radius:16px;padding:20px;border:1px solid #e8dfd4;box-shadow:0 16px 40px rgba(0,0,0,.2);">
       <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #e8dfd4;padding-bottom:12px;">
         <h3 style="margin:0;font-size:20px;">Giỏ hàng của bạn</h3>
         <button id="close-cart" type="button" style="border:none;background:transparent;font-size:20px;">✕</button>
       </div>
-
       <div id="cart-items" style="margin:16px 0;"></div>
-
       <div style="display:flex;justify-content:space-between;align-items:center;font-weight:bold;font-size:16px;border-top:1px solid #e8dfd4;padding-top:12px;">
         <span>Tổng tiền:</span>
         <span id="cart-total" style="color:#704d38;">0đ</span>
       </div>
-
       <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap;">
         <button id="copy-cart-btn" type="button" style="flex:1;padding:11px;border-radius:9px;border:1px solid #704d38;background:#fff;color:#704d38;font-weight:bold;">Sao chép danh sách món</button>
         <a id="checkout-link" href="https://forms.gle/Mo3HRN2X5XgxKQqT8" target="_blank" style="flex:1;padding:11px;border-radius:9px;background:#704d38;color:#fff;font-weight:bold;text-align:center;text-decoration:none;">Tiến hành đặt mua →</a>
@@ -542,7 +460,7 @@
         oldPrice: 210000,
         image: "https://product.hstatic.net/200000555893/product/chen-an-hoa-qua-gom-su-3_0a4ce994f28f4d87964ecd529ba70dc0_large.jpg",
         badge: "Ưu đãi",
-        description: "bát gốm thủ công, phù hợp đựng món ăn."
+        description: "Bát gốm thủ công, phù hợp đựng món ăn."
       },
       {
         id: 4,
@@ -552,12 +470,12 @@
         oldPrice: 200000,
         image: "https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-lz5ke4f5u79pcb",
         badge: "Được yêu thích",
-        description: "nồi lẩu siu iu buổi tối."
+        description: "Nồi lẩu siu iu buổi tối."
       },
       {
         id: 5,
         name: "Thìa cơm gốm sứ",
-        category: "đũa thìa",
+        category: "Đũa thìa",
         price: 60000,
         oldPrice: 95000,
         image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQppmuBkSKIJIsQdpJsOXDJezJsIVWPYbOunCntiuVvkV80foI8TTBPpdAL&s=10",
@@ -582,7 +500,7 @@
         oldPrice: 80000,
         image: "https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcS37B9YdyH4_tW_5XRdJdvhz1Gq6ILih4xv3BDIuFKNvzMNSQWsb1BuXk8ASv9I9PUB7qoSR15cEZjkbsgJolfX7ldoKs3eNKnnezfh380&usqp=CAc",
         badge: "Thủ công",
-        description: "bát đơn giản, phù hợp sử dụng mỗi ngày."
+        description: "Bát đơn giản, phù hợp sử dụng mỗi ngày."
       },
       {
         id: 8,
@@ -600,8 +518,18 @@
     const searchInput = document.getElementById("search");
     const categoryFilter = document.getElementById("category-filter");
 
+    function normalizeText(text) {
+      return String(text || "")
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/đ/g, "d")
+        .replace(/Đ/g, "D")
+        .toLowerCase()
+        .trim();
+    }
+
     function formatPrice(price) {
-      return price.toLocaleString("vi-VN") + "đ";
+      return Number(price || 0).toLocaleString("vi-VN") + "đ";
     }
 
     function createProductCard(product) {
@@ -617,51 +545,41 @@
             <div class="product-description">${product.description}</div>
             <div class="price-row">
               <span class="price">${formatPrice(product.price)}</span>
-              ${product.oldPrice
-                ? `<span class="old-price">${formatPrice(product.oldPrice)}</span>`
-                : ""}
+              ${product.oldPrice ? `<span class="old-price">${formatPrice(product.oldPrice)}</span>` : ""}
             </div>
-            ${product.saleTimer
-              ? `<div class="card-countdown">Ưu đãi còn: <span class="card-sale-timer">00:30:00</span></div>`
-              : ""}
-            <button type="button" data-add="${product.id}" class="add-button" style="margin-bottom: 8px;">Thêm vào giỏ</button>
-            <a href="https://forms.gle/Mo3HRN2X5XgxKQqT8" target="_blank" class="add-to-cart" style="text-align: center; text-decoration: none; display: block;">Đặt mua ngay</a>
+            <button type="button" data-add="${product.id}" class="add-button" style="margin-bottom:8px;">Thêm vào giỏ</button>
+            <a href="https://forms.gle/Mo3HRN2X5XgxKQqT8" target="_blank" rel="noopener" class="add-to-cart" style="text-align:center;text-decoration:none;display:block;">Đặt mua ngay</a>
           </div>
         </article>
       `;
     }
 
     function renderProducts() {
-      const query = searchInput.value.trim().toLowerCase();
+      const query = normalizeText(searchInput.value);
       const selectedCategory = categoryFilter.value;
-
-      const filteredProducts = products.filter(product => {
-        const matchesName = product.name.toLowerCase().includes(query);
-        const matchesCategory =
-          selectedCategory === "Tất cả" || product.category === selectedCategory;
-
-        return matchesName && matchesCategory;
+      const filtered = products.filter(p => {
+        const text = normalizeText(`${p.name} ${p.category} ${p.description}`);
+        const matchQuery = !query || text.includes(query);
+        const matchCat = selectedCategory === "Tất cả" || p.category === selectedCategory;
+        return matchQuery && matchCat;
       });
-
-      productGrid.innerHTML = filteredProducts.length
-        ? filteredProducts.map(createProductCard).join("")
+      productGrid.innerHTML = filtered.length
+        ? filtered.map(createProductCard).join("")
         : '<div class="empty">Không tìm thấy sản phẩm phù hợp.</div>';
     }
 
     function populateCategories() {
-      const categories = [...new Set(products.map(product => product.category))];
-
-      categories.forEach(category => {
-        const option = document.createElement("option");
-        option.value = category;
-        option.textContent = category;
-        categoryFilter.appendChild(option);
+      const cats = [...new Set(products.map(p => p.category))];
+      cats.forEach(cat => {
+        const opt = document.createElement("option");
+        opt.value = cat;
+        opt.textContent = cat;
+        categoryFilter.appendChild(opt);
       });
     }
 
     searchInput.addEventListener("input", renderProducts);
     categoryFilter.addEventListener("change", renderProducts);
-
     populateCategories();
     renderProducts();
 
@@ -669,14 +587,16 @@
     function updateClock() {
       if (!clockEl) return;
       const now = new Date();
-      clockEl.textContent = now.toLocaleTimeString("vi-VN");
+      const d = now.toLocaleDateString("vi-VN", { weekday: "short", day: "2-digit", month: "2-digit", year: "numeric" });
+      const t = now.toLocaleTimeString("vi-VN");
+      clockEl.textContent = `${d} · ${t}`;
     }
     updateClock();
     setInterval(updateClock, 1000);
 
     const saleEl = document.getElementById("flash-sale-timer");
     const shopSaleEl = document.getElementById("shop-sale-timer");
-    let saleSeconds = 2 * 3600;
+    let saleSeconds = 30 * 60;
     function updateSaleCountdown() {
       if (saleSeconds <= 0) {
         if (saleEl) saleEl.textContent = "00:00:00";
@@ -686,9 +606,9 @@
       const h = String(Math.floor(saleSeconds / 3600)).padStart(2, "0");
       const m = String(Math.floor((saleSeconds % 3600) / 60)).padStart(2, "0");
       const s = String(saleSeconds % 60).padStart(2, "0");
-      const formatted = `${h}:${m}:${s}`;
-      if (saleEl) saleEl.textContent = formatted;
-      if (shopSaleEl) shopSaleEl.textContent = formatted;
+      const fmt = `${h}:${m}:${s}`;
+      if (saleEl) saleEl.textContent = fmt;
+      if (shopSaleEl) shopSaleEl.textContent = fmt;
       saleSeconds -= 1;
     }
     updateSaleCountdown();
@@ -708,44 +628,39 @@
     const cartModal = document.getElementById("cart-modal");
     const cartItemsEl = document.getElementById("cart-items");
     const cartTotalEl = document.getElementById("cart-total");
-    const checkoutLink = document.getElementById("checkout-link");
     const copyCartBtn = document.getElementById("copy-cart-btn");
-    const cartHeaderBtn = document.querySelector(".cart-button");
+    const openCartBtn = document.getElementById("open-cart-btn");
+    const closeCartBtn = document.getElementById("close-cart");
 
     function getCartSummaryText() {
       if (!cart.length) return "";
-      return cart
-        .map(item => `${item.name} x${item.qty} (${formatPrice(item.price * item.qty)})`)
-        .join(", ");
+      return cart.map(i => `${i.name} x${i.qty} (${formatPrice(i.price * i.qty)})`).join(", ");
     }
 
     function updateCartUI() {
-      const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
-      const totalPrice = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
-
+      const totalQty = cart.reduce((sum, i) => sum + i.qty, 0);
+      const totalPrice = cart.reduce((sum, i) => sum + i.price * i.qty, 0);
       document.getElementById("cart-count").textContent = totalQty;
       cartTotalEl.textContent = formatPrice(totalPrice);
 
       if (!cart.length) {
         cartItemsEl.innerHTML = '<p style="color:#83796e;text-align:center;padding:16px 0;">Giỏ hàng đang trống.</p>';
       } else {
-        cartItemsEl.innerHTML = cart.map(item => `
+        cartItemsEl.innerHTML = cart.map(i => `
           <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 0;border-bottom:1px dashed #e8dfd4;">
             <div>
-              <div style="font-weight:bold;">${item.name}</div>
-              <div style="font-size:13px;color:#83796e;">${formatPrice(item.price)} x ${item.qty}</div>
+              <div style="font-weight:bold;">${i.name}</div>
+              <div style="font-size:13px;color:#83796e;">${formatPrice(i.price)} x ${i.qty}</div>
             </div>
             <div style="display:flex;align-items:center;gap:6px;">
-              <button type="button" data-dec="${item.id}" style="width:28px;height:28px;border:1px solid #e8dfd4;border-radius:6px;background:#fff;">-</button>
-              <span>${item.qty}</span>
-              <button type="button" data-inc="${item.id}" style="width:28px;height:28px;border:1px solid #e8dfd4;border-radius:6px;background:#fff;">+</button>
-              <button type="button" data-del="${item.id}" style="border:none;background:transparent;color:#b76d4a;font-weight:bold;margin-left:4px;">Xóa</button>
+              <button type="button" data-dec="${i.id}" style="width:28px;height:28px;border:1px solid #e8dfd4;border-radius:6px;background:#fff;">-</button>
+              <span>${i.qty}</span>
+              <button type="button" data-inc="${i.id}" style="width:28px;height:28px;border:1px solid #e8dfd4;border-radius:6px;background:#fff;">+</button>
+              <button type="button" data-del="${i.id}" style="border:none;background:transparent;color:#b76d4a;font-weight:bold;margin-left:4px;">Xóa</button>
             </div>
           </div>
         `).join("");
       }
-
-      checkoutLink.href = "https://forms.gle/Mo3HRN2X5XgxKQqT8";
     }
 
     productGrid.addEventListener("click", event => {
@@ -754,15 +669,10 @@
       const id = Number(btn.getAttribute("data-add"));
       const prod = products.find(p => p.id === id);
       if (!prod) return;
-
       const existing = cart.find(i => i.id === id);
-      if (existing) {
-        existing.qty += 1;
-      } else {
-        cart.push({ id: prod.id, name: prod.name, price: prod.price, qty: 1 });
-      }
+      if (existing) existing.qty += 1;
+      else cart.push({ id: prod.id, name: prod.name, price: prod.price, qty: 1 });
       updateCartUI();
-
       btn.textContent = "Đã thêm ✓";
       setTimeout(() => { btn.textContent = "Thêm vào giỏ"; }, 1000);
     });
@@ -771,7 +681,6 @@
       const incBtn = event.target.closest("[data-inc]");
       const decBtn = event.target.closest("[data-dec]");
       const delBtn = event.target.closest("[data-del]");
-
       if (incBtn) {
         const id = Number(incBtn.getAttribute("data-inc"));
         const item = cart.find(i => i.id === id);
@@ -798,18 +707,16 @@
       setTimeout(() => { copyCartBtn.textContent = "Sao chép danh sách món"; }, 1200);
     });
 
-    if (cartHeaderBtn) {
-      cartHeaderBtn.addEventListener("click", () => {
-        cartModal.style.display = "flex";
-      });
-    }
+    openCartBtn.addEventListener("click", () => {
+      cartModal.classList.add("open");
+    });
 
-    document.getElementById("close-cart").addEventListener("click", () => {
-      cartModal.style.display = "none";
+    closeCartBtn.addEventListener("click", () => {
+      cartModal.classList.remove("open");
     });
 
     cartModal.addEventListener("click", e => {
-      if (e.target === cartModal) cartModal.style.display = "none";
+      if (e.target === cartModal) cartModal.classList.remove("open");
     });
 
     updateCartUI();
