@@ -454,10 +454,9 @@
           <span class="eyebrow">Góc gốm của Mộc</span>
           <h2>Sản phẩm nổi bật</h2>
           <p>Tìm món đồ gốm phù hợp với không gian và thói quen của bạn.</p>
-          <p>Ưu đãi kết thúc sau: <span id="shop-sale-timer">02:00:00</span></p>
         </div>
       </div>
-
+ <p>Ưu đãi kết thúc sau: <span id="shop-sale-timer">00:30:00</span></p>
       <div class="shop-tools">
         <input
           class="search"
@@ -676,7 +675,7 @@ updateClock();
 setInterval(updateClock, 1000);
 const saleEl = document.getElementById("flash-sale-timer");
 const shopSaleEl = document.getElementById("shop-sale-timer");
-let saleSeconds = 2 * 3600;
+let saleSeconds = 30 * 60;
 function updateSaleCountdown() {
   if (saleSeconds <= 0) {
     if (saleEl) saleEl.textContent = "00:00:00";
