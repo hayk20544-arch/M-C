@@ -664,13 +664,16 @@
 
     populateCategories();
     renderProducts();
-  </script>
-  const clockEl = document.getElementById("live-time");
+<span id="live-time"></span>
+<div>Ưu đãi hôm nay — <span id="live-time"></span></div>
+const clockEl = document.getElementById("live-time");
 function updateClock() {
+  if (!clockEl) return;
   const now = new Date();
   clockEl.textContent = now.toLocaleTimeString("vi-VN");
 }
 updateClock();
 setInterval(updateClock, 1000);
+  </script>
 </body>
 </html>
