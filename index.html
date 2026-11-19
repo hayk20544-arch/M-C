@@ -410,6 +410,7 @@
         <a href="#san-pham">Sản phẩm</a>
         <a href="#ve-chung-toi">Về chúng tôi</a>
         <a href="#lien-he">Liên hệ</a>
+        <span id="live-time"></span>
       </div>
 
       <button class="cart-button" type="button">
@@ -664,8 +665,6 @@
 
     populateCategories();
     renderProducts();
-<span id="live-time"></span>
-<div>Ưu đãi hôm nay — <span id="live-time"></span></div>
 const clockEl = document.getElementById("live-time");
 function updateClock() {
   if (!clockEl) return;
