@@ -454,6 +454,7 @@
           <span class="eyebrow">Góc gốm của Mộc</span>
           <h2>Sản phẩm nổi bật</h2>
           <p>Tìm món đồ gốm phù hợp với không gian và thói quen của bạn.</p>
+          <p>Ưu đãi kết thúc sau: <span id="shop-sale-timer">02:00:00</span></p>
         </div>
       </div>
 
@@ -674,17 +675,20 @@ function updateClock() {
 updateClock();
 setInterval(updateClock, 1000);
 const saleEl = document.getElementById("flash-sale-timer");
+const shopSaleEl = document.getElementById("shop-sale-timer");
 let saleSeconds = 2 * 3600;
 function updateSaleCountdown() {
-  if (!saleEl) return;
   if (saleSeconds <= 0) {
-    saleEl.textContent = "00:00:00";
+    if (saleEl) saleEl.textContent = "00:00:00";
+    if (shopSaleEl) shopSaleEl.textContent = "00:00:00";
     return;
   }
   const h = String(Math.floor(saleSeconds / 3600)).padStart(2, "0");
   const m = String(Math.floor((saleSeconds % 3600) / 60)).padStart(2, "0");
   const s = String(saleSeconds % 60).padStart(2, "0");
-  saleEl.textContent = `${h}:${m}:${s}`;
+  const formatted = `${h}:${m}:${s}`;
+  if (saleEl) saleEl.textContent = formatted;
+  if (shopSaleEl) shopSaleEl.textContent = formatted;
   saleSeconds -= 1;
 }
 updateSaleCountdown();
