@@ -456,7 +456,7 @@
           <p>Tìm món đồ gốm phù hợp với không gian và thói quen của bạn.</p>
         </div>
       </div>
- <p>Ưu đãi kết thúc sau: <span id="shop-sale-timer">00:30:00</span></p>
+      
       <div class="shop-tools">
         <input
           class="search"
@@ -514,6 +514,7 @@
         image: "https://i.pinimg.com/236x/db/63/9b/db639bec756a674708aa4bb2ce60b3d7.jpg",
         badge: "Bán chạy",
         description: "Chiếc ly vừa tay cho buổi sáng thư thả."
+        saleTimer: true
       },
       {
         id: 2,
@@ -524,6 +525,7 @@
         image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_2WIeY2U0b5QERIiYT-oduyT3QsEQY_LiPAfGwBeQo_SgOA6D8kvxkQ4&s=10",
         badge: "Thủ công",
         description: "Tạo điểm nhấn mộc mạc cho bàn ăn của bạn."
+        saleTimer: true
       },
       {
         id: 3,
@@ -534,6 +536,7 @@
         image: "https://product.hstatic.net/200000555893/product/chen-an-hoa-qua-gom-su-3_0a4ce994f28f4d87964ecd529ba70dc0_large.jpg",
         badge: "Ưu đãi",
         description: "bát gốm thủ công, phù hợp đựng món ăn."
+        saleTimer: true
       },
       {
         id: 4,
@@ -544,6 +547,7 @@
         image: "https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-lz5ke4f5u79pcb",
         badge: "Được yêu thích",
         description: "nồi lẩu siu iu buổi tối."
+        saleTimer: true
       },
       {
         id: 5,
@@ -554,6 +558,7 @@
         image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQppmuBkSKIJIsQdpJsOXDJezJsIVWPYbOunCntiuVvkV80foI8TTBPpdAL&s=10",
         badge: "Mới",
         description: "Từng thìa cơm ngon lành."
+        saleTimer: true
       },
       {
         id: 6,
@@ -564,6 +569,7 @@
         image: "https://sudospaces.com/thichtrongcay/2021/07/3e2a5893386018376cbf2d7ef8b493ca.jpg",
         badge: "Ưu đãi",
         description: "Thêm sắc xanh nhỏ cho bàn làm việc hoặc bệ cửa sổ."
+        saleTimer: true
       },
       {
         id: 7,
@@ -574,6 +580,7 @@
         image: "https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcS37B9YdyH4_tW_5XRdJdvhz1Gq6ILih4xv3BDIuFKNvzMNSQWsb1BuXk8ASv9I9PUB7qoSR15cEZjkbsgJolfX7ldoKs3eNKnnezfh380&usqp=CAc",
         badge: "Thủ công",
         description: "bát đơn giản, phù hợp sử dụng mỗi ngày."
+        saleTimer: true
       },
       {
         id: 8,
@@ -584,6 +591,7 @@
         image: "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcTWSOKNP5Slr2OHQr36r9shqxhRsliBlZfNOSAysvHEkcewKpTRr3wlJBJGeae_yNuiVHWi24Ov29MxLVrB-7HzaiOQLHY0sgkTpLYERUQ&usqp=CAc",
         badge: "Tiện lợi",
         description: "Món đồ sử dụng dễ thương cho từng bữa ăn."
+        saleTimer: true
       }
     ];
 
@@ -613,6 +621,9 @@
                 ? `<span class="old-price">${formatPrice(product.oldPrice)}</span>`
                 : ""}
             </div>
+            ${product.saleTimer
+              ? `<div class="card-countdown">Ưu đãi còn: <span class="card-sale-timer">00:30:00</span></div>`
+              : ""}
             <a href="https://forms.gle/Mo3HRN2X5XgxKQqT8" target="_blank" class="add-to-cart" style="text-align: center; text-decoration: none; display: block;">Đặt mua ngay</a>
           </div>
         </article>
@@ -677,18 +688,18 @@ const saleEl = document.getElementById("flash-sale-timer");
 const shopSaleEl = document.getElementById("shop-sale-timer");
 let saleSeconds = 30 * 60;
 function updateSaleCountdown() {
-  if (saleSeconds <= 0) {
-    if (saleEl) saleEl.textContent = "00:00:00";
-    if (shopSaleEl) shopSaleEl.textContent = "00:00:00";
-    return;
-  }
-  const h = String(Math.floor(saleSeconds / 3600)).padStart(2, "0");
-  const m = String(Math.floor((saleSeconds % 3600) / 60)).padStart(2, "0");
-  const s = String(saleSeconds % 60).padStart(2, "0");
-  const formatted = `${h}:${m}:${s}`;
+  const formatted = saleSeconds <= 0
+    ? "00:00:00"
+    : `${String(Math.floor(saleSeconds / 3600)).padStart(2, "0")}:${String(Math.floor((saleSeconds % 3600) / 60)).padStart(2, "0")}:${String(saleSeconds % 60).padStart(2, "0")}`;
+
   if (saleEl) saleEl.textContent = formatted;
   if (shopSaleEl) shopSaleEl.textContent = formatted;
-  saleSeconds -= 1;
+
+  document.querySelectorAll(".card-sale-timer").forEach(el => {
+    el.textContent = formatted;
+  });
+
+  if (saleSeconds > 0) saleSeconds -= 1;
 }
 updateSaleCountdown();
 setInterval(updateSaleCountdown, 1000);
